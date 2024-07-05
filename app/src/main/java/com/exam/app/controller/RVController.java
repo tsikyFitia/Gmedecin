@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @RestController
+@RequestMapping("/client")
 public class RVController {
     @Autowired
     private RVServiceInterface RVService;
@@ -32,8 +33,18 @@ public class RVController {
 
         Clients client = clientsService.findById(idClient);
         Creneaux creneau = creneauxService.findById(idCreneau);
+
+        if (!creneau.isIs_disponible()) {
+           System.out.println("Le créneau horaire n'est pas disponible." + !creneau.isIs_disponible());
+           return null;
+        }
+
+        creneau.setIs_disponible(false);
+        creneauxService.save(creneau);
+
         rv.setClient((client));
         rv.setCreneau(creneau);
+
         return RVService.save(rv);
     }
 
