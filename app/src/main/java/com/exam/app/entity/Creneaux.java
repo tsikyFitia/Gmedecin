@@ -25,6 +25,10 @@ public class Creneaux {
     @Column(length = 11)
     private Integer mfin;
 
+    private boolean is_disponible;
+    @Transient
+    private BigInteger idMedecin;
+
     public Creneaux() {
     }
 
@@ -82,5 +86,21 @@ public class Creneaux {
 
     public void setMfin(Integer mfin) {
         this.mfin = mfin;
+    }
+
+    public BigInteger getIdMedecin() {
+        return idMedecin;
+    }
+
+    public void setIdMedecin(BigInteger idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
+    public boolean isIs_disponible() {
+        return is_disponible;
+    }
+
+    public void setIs_disponible(boolean is_disponible) {
+        this.is_disponible = is_disponible;
     }
 }

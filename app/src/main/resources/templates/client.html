@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Clients</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/client.js}"></script>
+</head>
+<body>
+
+<div th:insert="nav :: nav"></div>
+
+<h1>Liste des Clients</h1>
+<button onclick="openForm()">Ajouter Client</button>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Version</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clientsList}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.nom}"></td>
+        <td th:text="${client.prenom}"></td>
+        <td th:text="${client.version}"></td>
+        <td>
+            <button th:data-id="${client.id}"
+                    th:data-nom="${client.nom}"
+                    th:data-prenom="${client.prenom}"
+                    onclick="editClient(this)">Modifier</button>
+            <button th:onclick="'deleteClient(' + ${client.id} + ')'">Supprimer</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="clientFormModal" style="display:none;">
+    <div>
+        <h2 id="formTitle">Ajouter Médecin</h2>
+        <form id="clientForm" method="post" th:object="${newClient}">
+            <input type="hidden" id="id" th:field="*{id}" />
+            <label for="nom">Nom:</label>
+            <input type="text" id="nom" th:field="*{nom}" />
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" th:field="*{prenom}" />
+            <button type="submit" id="submitBtn">Ajouter</button>
+            <button type="button" onclick="closeForm()">Annuler</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
